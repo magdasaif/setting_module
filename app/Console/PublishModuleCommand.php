@@ -35,13 +35,10 @@ class PublishModuleCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
-    {
-        echo 'publish package folders';
+    public function handle(){
         $this->call('vendor:publish', ['--tag' => 'product-module']);
+        $this->call('vendor:publish', ['--tag' => 'product-config']);
 
-        // echo 'handle module status json file';
-        // ModuleStatusHandler::handle();
         $this->handleModulesStatusJsonFile();
         $this->info('Module files published and status updated.');
     }
