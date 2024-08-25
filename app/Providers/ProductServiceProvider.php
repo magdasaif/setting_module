@@ -30,7 +30,7 @@ class ProductServiceProvider extends ServiceProvider
         //==============================================================================================
         // publish config
         $this->publishes([
-            dirname(__DIR__) .'/../config/config.php' => base_path('config/product.php')        
+            __DIR__.'/../../config/config.php' => base_path('config/product.php'),
         ], 'product-config');
         //==============================================================================================
     }
