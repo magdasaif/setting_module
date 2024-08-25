@@ -38,7 +38,7 @@ class PublishModuleCommand extends Command
     public function handle()
     {
         echo 'publish package folders';
-        $this->call('vendor:publish', ['--tag' => $this->moduleNameLower.'-module']);
+        $this->call('vendor:publish', ['--tag' => 'product-module']);
 
         // echo 'handle module status json file';
         // ModuleStatusHandler::handle();
