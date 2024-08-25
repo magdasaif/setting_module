@@ -1,0 +1,42 @@
+{
+    "name": "magdasaif/product_module",
+    "description": "this is a product package based on hmvc module",
+    "type":"library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "magdasaif",
+            "email": "magdasaif3@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Product\\Providers\\ProductServiceProvider",
+                "Modules\\Product\\Providers\\EventServiceProvider",
+                "Modules\\Product\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Product\\": "app/",
+            "Modules\\Product\\Database\\Factories\\": "database/factories/",
+            "Modules\\Product\\Database\\Seeders\\": "database/seeders/"
+        },
+         "exclude-from-classmap": [
+            "vendor/nwidart/laravel-modules/src/helpers.php"
+        ],
+        "files": [
+            "app/Overrides/Nwidart/Laravel_modules/Src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Product\\Tests\\": "tests/"
+        }
+    }
+}
