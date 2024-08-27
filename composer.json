@@ -19,6 +19,9 @@
             "aliases": {
 
             }
+        },
+        "module-files": {
+            "helpers.php": "app/Overrides/Nwidart/Laravel_modules/Src/helpers.php"
         }
     },
     "minimum-stability": "dev",

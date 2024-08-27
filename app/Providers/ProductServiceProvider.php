@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Providers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +23,7 @@ class ProductServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'database/migrations'));
+        $this->overrideModuleFiles();
         //==============================================================================================
         // publish all package folder
         $this->publishes([
@@ -129,5 +131,24 @@ class ProductServiceProvider extends ServiceProvider
         }
 
         return $paths;
+    }
+
+    //======================================================================
+    protected function overrideModuleFiles(){
+        Log::info("============================================================");
+        Log::info("inside overrideModuleFiles function line 139");
+        $packagePath = __DIR__ . '/../../';
+        $composerJson = json_decode(file_get_contents($packagePath . 'composer.json'), true);
+        $filesToOverride = $composerJson['extra']['module-files'] ?? [];
+
+        foreach ($filesToOverride as $originalFile => $overrideFile) {
+            $originalPath = base_path('vendor/nwidart/laravel-modules/src/' . $originalFile);
+            $overridePath = $packagePath . $overrideFile;
+
+            if (file_exists($overridePath)) {
+                copy($overridePath, $originalPath);
+            }
+        }
+        Log::info("============================================================");
     }
 }
