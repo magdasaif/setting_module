@@ -3,10 +3,20 @@
 namespace Modules\Product\Providers;
 
 use Illuminate\Support\Facades\Route;
+use Modules\Product\Traits\Configuration;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    use Configuration;
+    //===================================================================================
+    /**
+     * The module namespace to assume when generating URLs to actions.
+     */
+    protected string $moduleNamespace = 'Modules\Product\Http\Controllers';
+
+    //===================================================================================
+
     /**
      * Called before routes are registered.
      *
@@ -16,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
     }
+    //===================================================================================
 
     /**
      * Define the routes for the application.
@@ -26,6 +37,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
     }
+    //===================================================================================
 
     /**
      * Define the "web" routes for the application.
@@ -34,8 +46,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        Route::middleware('web')->group($this->module_path('Product', '/routes/web.php'));
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group($this->module_path('Product', '/routes/web.php'));
+        // Route::middleware('web')->group($this->module_path('Product', '/routes/web.php'));
     }
+    //===================================================================================
 
     /**
      * Define the "api" routes for the application.
@@ -44,18 +60,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-        Route::middleware('api')->prefix('api')->name('api.')->group($this->module_path('Product', '/routes/api.php'));
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->moduleNamespace)
+            ->group($this->module_path('Product', '/routes/api.php'));
+        // Route::middleware('api')->prefix('api')->name('api.')->group($this->module_path('Product', '/routes/api.php'));
     }
+    //===================================================================================
 
-    //======================================================================
-    public function module_path($name, $path = '')
-    {
-        $module = app('modules')->find($name);
-        if(isset($module)){
-            return $module->getPath().($path ? DIRECTORY_SEPARATOR.$path : $path);
-        }else{
-            return $path;
-        }
-    }
-    //====================================================================== 
 }
