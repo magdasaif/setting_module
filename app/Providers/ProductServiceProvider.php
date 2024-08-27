@@ -22,7 +22,7 @@ class ProductServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'database/migrations'));
+        $this->loadMigrationsFrom($this->module_path($this->moduleName, 'database/migrations'));
         $this->overrideModuleFiles();
         //==============================================================================================
         // publish all package folder
@@ -78,8 +78,8 @@ class ProductServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
             $this->loadJsonTranslationsFrom($langPath);
         } else {
-            $this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
+            $this->loadTranslationsFrom($this->module_path($this->moduleName, 'lang'), $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom($this->module_path($this->moduleName, 'lang'));
         }
     }
 
@@ -88,8 +88,8 @@ class ProductServiceProvider extends ServiceProvider
      */
     protected function registerConfig(): void
     {
-        $this->publishes([module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
-        $this->mergeConfigFrom(module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
+        $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
+        $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
     }
 
     /**
@@ -98,7 +98,7 @@ class ProductServiceProvider extends ServiceProvider
     public function registerViews(): void
     {
         $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
-        $sourcePath = module_path($this->moduleName, 'resources/views');
+        $sourcePath = $this->module_path($this->moduleName, 'resources/views');
 
         $this->publishes([$sourcePath => $viewPath], ['views', $this->moduleNameLower.'-module-views']);
 
@@ -151,4 +151,15 @@ class ProductServiceProvider extends ServiceProvider
         }
         Log::info("============================================================");
     }
+    //======================================================================
+    public function module_path($name, $path = '')
+    {
+        $module = app('modules')->find($name);
+        if(isset($module)){
+            return $module->getPath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        }else{
+            return $path;
+        }
+    }
+    //======================================================================    
 }
