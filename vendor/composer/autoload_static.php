@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInite5a3b00a057e55c92e2e8fca34899299
 {
-    public static $files = array (
-        '204196a883106fe58ffb7cab87fc13fc' => __DIR__ . '/../..' . '/app/Overrides/Nwidart/Laravel_modules/Src/helpers.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'M' => 
         array (

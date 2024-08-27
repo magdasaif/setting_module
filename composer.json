@@ -28,7 +28,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "nwidart/laravel-modules": "^10.0"
+        "nwidart/laravel-modules": "*"
     },
     "autoload": {
         "psr-4": {
