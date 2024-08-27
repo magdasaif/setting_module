@@ -89,7 +89,7 @@ class ProductServiceProvider extends ServiceProvider
     protected function registerConfig(): void
     {
         $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
-        $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
+        // $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
     }
 
     /**
