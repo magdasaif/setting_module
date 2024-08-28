@@ -29,13 +29,13 @@ class SettingServiceProvider extends ServiceProvider
         //==============================================================================================
         // publish all package folder
         $this->publishes([
-            dirname(__DIR__) .'/..' => base_path('Modules/',$this->moduleName)        
-        ], $this->moduleNameLower.'-module');
+            dirname(__DIR__) .'/..' => base_path('Modules/Setting')        
+        ], 'setting-module');
         //==============================================================================================
         // publish config
         $this->publishes([
-            dirname(__DIR__) .'/../config/config.php' => config_path($this->moduleNameLower.'.php'),
-        ], $this->moduleNameLower.'-config');
+            dirname(__DIR__) .'/../config/config.php' => config_path('setting.php'),
+        ], 'setting-config');
         //==============================================================================================
     }
     //===================================================================================
@@ -70,16 +70,16 @@ class SettingServiceProvider extends ServiceProvider
      * Register translations.
      */
     public function registerTranslations(): void{
-        $langPath = resource_path('lang/modules/'.$this->moduleNameLower);
+        $langPath = resource_path('lang/modules/setting');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
+            $this->loadTranslationsFrom($langPath, 'setting');
             $this->loadJsonTranslationsFrom($langPath);
         } else {
             // $this->loadTranslationsFrom($this->module_path($this->moduleName, 'lang'), $this->moduleNameLower);
             // $this->loadJsonTranslationsFrom($this->module_path($this->moduleName, 'lang'));
 
-            $this->loadTranslationsFrom(__DIR__.'/../../lang', $this->moduleNameLower);
+            $this->loadTranslationsFrom(__DIR__.'/../../lang', 'setting');
             $this->loadJsonTranslationsFrom(__DIR__.'/../../lang');
         }
     }
@@ -91,8 +91,8 @@ class SettingServiceProvider extends ServiceProvider
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         // $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path('setting.php')], 'config');
         // $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
-        $this->publishes([__DIR__.'/../../config/config.php' => config_path($this->moduleNameLower.'.php')], 'config');
-        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', $this->moduleNameLower);
+        $this->publishes([__DIR__.'/../../config/config.php' => config_path('setting.php')], 'config');
+        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'setting');
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     }
     //===================================================================================
@@ -100,14 +100,14 @@ class SettingServiceProvider extends ServiceProvider
      * Register views.
      */
     public function registerViews(): void{
-        $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
+        $viewPath = resource_path('views/modules/setting');
         // $sourcePath = $this->module_path($this->moduleName, 'resources/views');
         $sourcePath = __DIR__.'/../../resources/views';
 
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->moduleNameLower.'-module-views']);
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+        $this->publishes([$sourcePath => $viewPath], ['views','setting-module-views']);
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), 'setting');
         $componentNamespace = str_replace('/', '\\', config('modules.namespace').'\\'.$this->moduleName.'\\'.ltrim(config('modules.paths.generator.component-class.path'), config('modules.paths.app_folder', '')));
-        Blade::componentNamespace($componentNamespace, $this->moduleNameLower);
+        Blade::componentNamespace($componentNamespace, 'setting');
     }
     //===================================================================================
     /**
@@ -125,8 +125,8 @@ class SettingServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array{
         $paths = [];
         foreach (config('view.paths') as $path) {
-            if (is_dir($path.'/modules/'.$this->moduleNameLower)) {
-                $paths[] = $path.'/modules/'.$this->moduleNameLower;
+            if (is_dir($path.'/modules/setting')) {
+                $paths[] = $path.'/modules/setting';
             }
         }
         return $paths;
