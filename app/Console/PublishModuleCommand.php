@@ -10,54 +10,31 @@ use Symfony\Component\Console\Input\InputArgument;
 class PublishModuleCommand extends Command
 {
     //==============================================================================================
-    /**
-     * The name and signature of the console command.
-     */
-    protected $signature = 'Product:publish';
-
-    /**
-     * The console command description.
-     */
-    protected $description = 'Publish package files and update module status.';
+    protected $signature    = 'Product:publish';
+    protected $description  = 'Publish package files and update module status.';
     //==============================================================================================
-    protected string $moduleName = 'Product';
-
-    protected string $moduleNameLower = 'Product';
+    protected string $moduleName        = 'Product';
+    protected string $moduleNameLower   = 'product';
     //==============================================================================================
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
     }
     //==============================================================================================
-    /**
-     * Execute the console command.
-     */
     public function handle(){
-        $this->call('vendor:publish', ['--tag' => 'product-module']);
-        $this->call('vendor:publish', ['--tag' => 'product-config']);
+        $this->call('vendor:publish', ['--tag' => $this->moduleNameLower.'-module']);
+        $this->call('vendor:publish', ['--tag' => $this->moduleNameLower.'-config']);
 
         $this->handleModulesStatusJsonFile();
         $this->info('Module files published and status updated.');
     }
     //==============================================================================================
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments(): array
-    {
+    protected function getArguments(): array{
         return [
             ['example', InputArgument::REQUIRED, 'An example argument.'],
         ];
     }
     //==============================================================================================
-    /**
-     * Get the console command options.
-     */
-    protected function getOptions(): array
-    {
+    protected function getOptions(): array{
         return [
             ['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
         ];

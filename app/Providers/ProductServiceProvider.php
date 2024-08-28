@@ -11,14 +11,13 @@ class ProductServiceProvider extends ServiceProvider
 {
     use Configuration;
     //===================================================================================
-    protected string $moduleName = 'Product';
-    protected string $moduleNameLower = 'product';
+    protected string $moduleName        = 'Product';
+    protected string $moduleNameLower   = 'product';
     //===================================================================================
     /**
      * Boot the application events.
      */
-    public function boot(): void
-    {
+    public function boot(): void{
         $this->registerCommands();
         $this->registerCommandSchedules();
         $this->registerTranslations();
@@ -42,8 +41,7 @@ class ProductServiceProvider extends ServiceProvider
     /**
      * Register the service provider.
      */
-    public function register(): void
-    {
+    public function register(): void{
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
     }
@@ -51,8 +49,7 @@ class ProductServiceProvider extends ServiceProvider
     /**
      * Register commands in the format of Command::class
      */
-    protected function registerCommands(): void
-    {
+    protected function registerCommands(): void{
         $this->commands([
             \Modules\Product\Console\PublishModuleCommand::class,
         ]);
@@ -61,8 +58,7 @@ class ProductServiceProvider extends ServiceProvider
     /**
      * Register command Schedules.
      */
-    protected function registerCommandSchedules(): void
-    {
+    protected function registerCommandSchedules(): void{
         // $this->app->booted(function () {
         //     $schedule = $this->app->make(Schedule::class);
         //     $schedule->command('inspire')->hourly();
@@ -72,8 +68,7 @@ class ProductServiceProvider extends ServiceProvider
     /**
      * Register translations.
      */
-    public function registerTranslations(): void
-    {
+    public function registerTranslations(): void{
         $langPath = resource_path('lang/modules/'.$this->moduleNameLower);
 
         if (is_dir($langPath)) {
@@ -88,30 +83,18 @@ class ProductServiceProvider extends ServiceProvider
     /**
      * Register config.
      */
-    protected function registerConfig(): void
-    {
+    protected function registerConfig(): void{
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
         // $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', $this->moduleNameLower);
-        //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-        //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-        
-            // $this->publishes([
-            //     __DIR__.'/../Config/config.php' => config_path('rnc.php'),
-            // ], 'config');
-            // $this->mergeConfigFrom(
-            //     __DIR__.'/../Config/config.php', 'rnc'
-            // );
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     }
     //===================================================================================
     /**
      * Register views.
      */
-    public function registerViews(): void
-    {
+    public function registerViews(): void{
         $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
         $sourcePath = $this->module_path($this->moduleName, 'resources/views');
 
@@ -128,26 +111,22 @@ class ProductServiceProvider extends ServiceProvider
      *
      * @return array<string>
      */
-    public function provides(): array
-    {
+    public function provides(): array {
         return [];
     }
     //===================================================================================
     /**
      * @return array<string>
      */
-    private function getPublishableViewPaths(): array
-    {
+    private function getPublishableViewPaths(): array{
         $paths = [];
         foreach (config('view.paths') as $path) {
             if (is_dir($path.'/modules/'.$this->moduleNameLower)) {
                 $paths[] = $path.'/modules/'.$this->moduleNameLower;
             }
         }
-
         return $paths;
     }
-
     //======================================================================
     // protected function overrideModuleFiles(){
     //     Log::info("============================================================");

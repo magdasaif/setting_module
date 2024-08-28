@@ -2,7 +2,7 @@
 namespace Modules\Product\Traits;
 
 trait Configuration{
-
+    //this trait act like override module_path in laravel_module helper
     //======================================================================
     public function module_path($name, $path = ''){
         $module = app('modules')->find($name);

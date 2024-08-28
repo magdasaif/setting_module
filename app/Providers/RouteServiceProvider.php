@@ -14,9 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      * The module namespace to assume when generating URLs to actions.
      */
     protected string $moduleNamespace = 'Modules\Product\Http\Controllers';
-
     //===================================================================================
-
     /**
      * Called before routes are registered.
      *
@@ -27,25 +25,20 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
     }
     //===================================================================================
-
     /**
      * Define the routes for the application.
      */
-    public function map(): void
-    {
+    public function map(): void{
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
     }
     //===================================================================================
-
     /**
      * Define the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      */
-    protected function mapWebRoutes(): void
-    {
+    protected function mapWebRoutes(): void{
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
             // ->group($this->module_path('Product', '/routes/web.php'));
@@ -54,14 +47,12 @@ class RouteServiceProvider extends ServiceProvider
         // Route::middleware('web')->group($this->module_path('Product', '/routes/web.php'));
     }
     //===================================================================================
-
     /**
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
      */
-    protected function mapApiRoutes(): void
-    {
+    protected function mapApiRoutes(): void{
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->moduleNamespace)
@@ -71,5 +62,4 @@ class RouteServiceProvider extends ServiceProvider
         // Route::middleware('api')->prefix('api')->name('api.')->group($this->module_path('Product', '/routes/api.php'));
     }
     //===================================================================================
-
 }
