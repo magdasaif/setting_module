@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Overrides\Nwidart\Laravel_modules\Src;
+namespace Modules\Setting\Overrides\Nwidart\Laravel_modules\Src;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\Facades\Vite as ViteFacade;
 

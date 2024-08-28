@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Providers;
+namespace Modules\Setting\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Modules\Product\Traits\Configuration;
@@ -8,12 +8,12 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-    use Configuration;
+    // use Configuration;
     //===================================================================================
     /**
      * The module namespace to assume when generating URLs to actions.
      */
-    protected string $moduleNamespace = 'Modules\Product\Http\Controllers';
+    protected string $moduleNamespace = 'Modules\Setting\Http\Controllers';
     //===================================================================================
     /**
      * Called before routes are registered.
@@ -41,10 +41,10 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes(): void{
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
-            // ->group($this->module_path('Product', '/routes/web.php'));
+            // ->group($this->module_path2('Setting', '/routes/web.php'));
             ->group( __DIR__.'/../../routes/web.php');
 
-        // Route::middleware('web')->group($this->module_path('Product', '/routes/web.php'));
+        // Route::middleware('web')->group($this->module_path2('Setting', '/routes/web.php'));
     }
     //===================================================================================
     /**
@@ -56,10 +56,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->moduleNamespace)
-            // ->group($this->module_path('Product', '/routes/api.php'));
+            // ->group($this->module_path2('Setting', '/routes/api.php'));
             ->group( __DIR__.'/../../routes/api.php');
 
-        // Route::middleware('api')->prefix('api')->name('api.')->group($this->module_path('Product', '/routes/api.php'));
+        // Route::middleware('api')->prefix('api')->name('api.')->group($this->module_path2('Setting', '/routes/api.php'));
     }
     //===================================================================================
 }

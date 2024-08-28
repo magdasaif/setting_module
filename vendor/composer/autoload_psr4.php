@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Modules\\Product\\Database\\Seeders\\' => array($baseDir . '/database/seeders'),
-    'Modules\\Product\\Database\\Factories\\' => array($baseDir . '/database/factories'),
-    'Modules\\Product\\' => array($baseDir . '/app'),
+    'Modules\\Setting\\Database\\Seeders\\' => array($baseDir . '/database/seeders'),
+    'Modules\\Setting\\Database\\Factories\\' => array($baseDir . '/database/factories'),
+    'Modules\\Setting\\' => array($baseDir . '/app'),
 );

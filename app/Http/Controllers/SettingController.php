@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Product\Http\Controllers;
+namespace Modules\Setting\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ProductController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('product::index');
+        return view('setting::index');
     }
 
     /**
@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product::create');
+        return view('setting::create');
     }
 
     /**
@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('product::show');
+        return view('setting::show');
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('product::edit');
+        return view('setting::edit');
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Product\Traits;
+namespace Modules\Setting\Traits;
 
 trait Configuration{
     //this trait act like override module_path in laravel_module helper

@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Product\Providers;
+namespace Modules\Setting\Providers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Product\Traits\Configuration;
+use Modules\Setting\Traits\Configuration;
 
-class ProductServiceProvider extends ServiceProvider
+class SettingServiceProvider extends ServiceProvider
 {
-    use Configuration;
+    // use Configuration;
     //===================================================================================
-    protected string $moduleName        = 'Product';
-    protected string $moduleNameLower   = 'product';
+    protected string $moduleName        = 'Setting';
+    protected string $moduleNameLower   = 'setting';
     //===================================================================================
     /**
      * Boot the application events.
@@ -23,18 +23,19 @@ class ProductServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom($this->module_path($this->moduleName, 'database/migrations'));
+        // $this->loadMigrationsFrom($this->module_path($this->moduleName, 'database/migrations'));
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         // $this->overrideModuleFiles();
         //==============================================================================================
         // publish all package folder
         $this->publishes([
-            dirname(__DIR__) .'/..' => base_path('Modules/Product')        
-        ], 'product-module');
+            dirname(__DIR__) .'/..' => base_path('Modules/Setting')        
+        ], 'setting-module');
         //==============================================================================================
         // publish config
         $this->publishes([
-            dirname(__DIR__) .'/../config/config.php' => config_path('product.php'),
-        ], 'product-config');
+            dirname(__DIR__) .'/../config/config.php' => config_path('setting.php'),
+        ], 'setting-config');
         //==============================================================================================
     }
     //===================================================================================
@@ -51,7 +52,7 @@ class ProductServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void{
         $this->commands([
-            \Modules\Product\Console\PublishModuleCommand::class,
+            \Modules\Setting\Console\PublishModuleCommand::class,
         ]);
     }
     //===================================================================================
@@ -75,8 +76,11 @@ class ProductServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
             $this->loadJsonTranslationsFrom($langPath);
         } else {
-            $this->loadTranslationsFrom($this->module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom($this->module_path($this->moduleName, 'lang'));
+            // $this->loadTranslationsFrom($this->module_path($this->moduleName, 'lang'), $this->moduleNameLower);
+            // $this->loadJsonTranslationsFrom($this->module_path($this->moduleName, 'lang'));
+
+            $this->loadTranslationsFrom(__DIR__.'/../../lang', $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom(__DIR__.'/../../lang');
         }
     }
     //===================================================================================
@@ -85,8 +89,9 @@ class ProductServiceProvider extends ServiceProvider
      */
     protected function registerConfig(): void{
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-        $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
+        // $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path('setting.php')], 'config');
         // $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
+        $this->publishes([__DIR__.'/../../config/config.php' => config_path('setting.php')], 'config');
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', $this->moduleNameLower);
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     }
@@ -96,12 +101,11 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function registerViews(): void{
         $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
-        $sourcePath = $this->module_path($this->moduleName, 'resources/views');
+        // $sourcePath = $this->module_path($this->moduleName, 'resources/views');
+        $sourcePath = __DIR__.'/../../resources/views';
 
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->moduleNameLower.'-module-views']);
-
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
-
+        $this->publishes([$sourcePath => $viewPath], ['views', 'setting-module-views']);
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), 'setting');
         $componentNamespace = str_replace('/', '\\', config('modules.namespace').'\\'.$this->moduleName.'\\'.ltrim(config('modules.paths.generator.component-class.path'), config('modules.paths.app_folder', '')));
         Blade::componentNamespace($componentNamespace, $this->moduleNameLower);
     }
@@ -127,23 +131,5 @@ class ProductServiceProvider extends ServiceProvider
         }
         return $paths;
     }
-    //======================================================================
-    // protected function overrideModuleFiles(){
-    //     Log::info("============================================================");
-    //     Log::info("inside overrideModuleFiles function line 139");
-    //     $packagePath = __DIR__ . '/../../';
-    //     $composerJson = json_decode(file_get_contents($packagePath . 'composer.json'), true);
-    //     $filesToOverride = $composerJson['extra']['module-files'] ?? [];
-
-    //     foreach ($filesToOverride as $originalFile => $overrideFile) {
-    //         $originalPath = base_path('vendor/nwidart/laravel-modules/src/' . $originalFile);
-    //         $overridePath = $packagePath . $overrideFile;
-
-    //         if (file_exists($overridePath)) {
-    //             copy($overridePath, $originalPath);
-    //         }
-    //     }
-    //     Log::info("============================================================");
-    // }
-    //======================================================================
+    //===================================================================================
 }

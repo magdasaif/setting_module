@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Console;
+namespace Modules\Setting\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -10,11 +10,11 @@ use Symfony\Component\Console\Input\InputArgument;
 class PublishModuleCommand extends Command
 {
     //==============================================================================================
-    protected $signature    = 'Product:publish';
+    protected $signature    = 'setting:publish';
     protected $description  = 'Publish package files and update module status.';
     //==============================================================================================
-    protected string $moduleName        = 'Product';
-    protected string $moduleNameLower   = 'product';
+    protected string $moduleName        = 'Setting';
+    protected string $moduleNameLower   = 'setting';
     //==============================================================================================
     public function __construct(){
         parent::__construct();

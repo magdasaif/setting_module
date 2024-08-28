@@ -1,11 +1,11 @@
 {
-    "name": "Product",
-    "alias": "product",
+    "name": "Setting",
+    "alias": "setting",
     "description": "",
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\Product\\Providers\\ProductServiceProvider"
+        "Modules\\Setting\\Providers\\SettingServiceProvider"
     ],
     "files": []
 }

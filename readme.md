@@ -1,4 +1,4 @@
-# hmvc product module as a package
+# hmvc Setting module as a package
 
 - ✅ Make sure you install nwidart/laravel-modules
 - ✅ Install this package   
@@ -10,13 +10,13 @@
 
 ```bash
 #dont forget to install nwidart/laravel-modules 
-composer install nwidart/laravel-modules
+composer require nwidart/laravel-modules
 
-#install product_module package 
-composer install magdasaif/product_module:dev-dev
+#install Setting_module package 
+composer require magdasaif/setting_module:dev-dev
 
 # publish module folders
-php artisan product:publish
+php artisan setting:publish
 
 # then start to browse module routes and access them
 ```

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Product\Http\Controllers\ProductController;
+use Modules\Setting\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +15,5 @@ use Modules\Product\Http\Controllers\ProductController;
 */
 
 Route::group([], function () {
-    Route::resource('product', ProductController::class)->names('product');
+    Route::resource('setting', SettingController::class)->names('setting');
 });

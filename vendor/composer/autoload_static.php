@@ -9,22 +9,22 @@ class ComposerStaticInite5a3b00a057e55c92e2e8fca34899299
     public static $prefixLengthsPsr4 = array (
         'M' => 
         array (
-            'Modules\\Product\\Database\\Seeders\\' => 33,
-            'Modules\\Product\\Database\\Factories\\' => 35,
-            'Modules\\Product\\' => 16,
+            'Modules\\Setting\\Database\\Seeders\\' => 33,
+            'Modules\\Setting\\Database\\Factories\\' => 35,
+            'Modules\\Setting\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Modules\\Product\\Database\\Seeders\\' => 
+        'Modules\\Setting\\Database\\Seeders\\' => 
         array (
             0 => __DIR__ . '/../..' . '/database/seeders',
         ),
-        'Modules\\Product\\Database\\Factories\\' => 
+        'Modules\\Setting\\Database\\Factories\\' => 
         array (
             0 => __DIR__ . '/../..' . '/database/factories',
         ),
-        'Modules\\Product\\' => 
+        'Modules\\Setting\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
