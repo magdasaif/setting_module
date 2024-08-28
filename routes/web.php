@@ -15,12 +15,12 @@ use Modules\Setting\Http\Controllers\SettingController;
 */
 
 
-Route::group(['prefix' => 'dashboard', 'as' => 'admin.', 'middleware' => ['auth', 'dashboard']], function () {
-    Route::name('settings.edit')->get('settings/edit', 'SettingsController@edit');
-    Route::name('settings.update')->patch('settings/edit', 'SettingsController@update');
-});
-
-// Route::group([], function () {
-//     Route::resource('setting', SettingController::class)->names('setting');
-//     // Route::resource('settings', SettingController::class)->names('settings');
+// Route::group(['prefix' => 'dashboard', 'as' => 'admin.', 'middleware' => ['auth', 'dashboard']], function () {
+//     Route::name('settings.edit')->get('settings/edit', 'SettingsController@edit');
+//     Route::name('settings.update')->patch('settings/edit', 'SettingsController@update');
 // });
+
+Route::group([], function () {
+    // Route::resource('setting', SettingController::class)->names('setting');
+    Route::resource('settings', SettingController::class)->names('settings');
+});
