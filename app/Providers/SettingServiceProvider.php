@@ -2,10 +2,10 @@
 
 namespace Modules\Setting\Providers;
 
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Setting\Traits\Configuration;
+// use Modules\Setting\Traits\Configuration;
 
 class SettingServiceProvider extends ServiceProvider
 {
@@ -29,13 +29,13 @@ class SettingServiceProvider extends ServiceProvider
         //==============================================================================================
         // publish all package folder
         $this->publishes([
-            dirname(__DIR__) .'/..' => base_path('Modules/Setting')        
-        ], 'setting-module');
+            dirname(__DIR__) .'/..' => base_path('Modules/',$this->moduleName)        
+        ], $this->moduleNameLower.'-module');
         //==============================================================================================
         // publish config
         $this->publishes([
-            dirname(__DIR__) .'/../config/config.php' => config_path('setting.php'),
-        ], 'setting-config');
+            dirname(__DIR__) .'/../config/config.php' => config_path($this->moduleNameLower.'.php'),
+        ], $this->moduleNameLower.'-config');
         //==============================================================================================
     }
     //===================================================================================
@@ -91,7 +91,7 @@ class SettingServiceProvider extends ServiceProvider
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         // $this->publishes([$this->module_path($this->moduleName, 'config/config.php') => config_path('setting.php')], 'config');
         // $this->mergeConfigFrom($this->module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
-        $this->publishes([__DIR__.'/../../config/config.php' => config_path('setting.php')], 'config');
+        $this->publishes([__DIR__.'/../../config/config.php' => config_path($this->moduleNameLower.'.php')], 'config');
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', $this->moduleNameLower);
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     }
@@ -104,8 +104,8 @@ class SettingServiceProvider extends ServiceProvider
         // $sourcePath = $this->module_path($this->moduleName, 'resources/views');
         $sourcePath = __DIR__.'/../../resources/views';
 
-        $this->publishes([$sourcePath => $viewPath], ['views', 'setting-module-views']);
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), 'setting');
+        $this->publishes([$sourcePath => $viewPath], ['views', $this->moduleNameLower.'-module-views']);
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
         $componentNamespace = str_replace('/', '\\', config('modules.namespace').'\\'.$this->moduleName.'\\'.ltrim(config('modules.paths.generator.component-class.path'), config('modules.paths.app_folder', '')));
         Blade::componentNamespace($componentNamespace, $this->moduleNameLower);
     }
