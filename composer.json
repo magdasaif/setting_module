@@ -1,0 +1,45 @@
+{
+    "name": "magdasaif/setting_module",
+    "description": "this is a Setting package based on hmvc module",
+    "type":"library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "magdasaif",
+            "email": "magdasaif3@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Setting\\Providers\\SettingServiceProvider",
+                "Modules\\Setting\\Providers\\EventServiceProvider",
+                "Modules\\Setting\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        },
+        "module-files": {
+            "helpers.php": "app/Overrides/Nwidart/Laravel_modules/Src/helpers.php"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.2",
+        "nwidart/laravel-modules": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Setting\\": "app/",
+            "Modules\\Setting\\Database\\Factories\\": "database/factories/",
+            "Modules\\Setting\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Setting\\Tests\\": "tests/"
+        }
+    }
+}
